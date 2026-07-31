@@ -30,8 +30,9 @@ const StartInterview = ({ params }) => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white pt-24 px-10 pb-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 my-10 gap-10 max-w-5xl mx-auto">
+    <div className="premium-shell pt-36 pb-24">
+      <div className="premium-container">
+      <div className="mx-auto my-10 grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-2">
         {/* Questin Section */}
         <QuestionSection
           mockInterviewQuestion={mockInterviewQuestion}
@@ -45,11 +46,11 @@ const StartInterview = ({ params }) => {
           interviewData={interviewData}
         />
       </div>
-      <div className="flex gap-3 my-5 md:my-0 md:justify-end md:gap-6 max-w-5xl mx-auto">
+      <div className="mx-auto my-5 flex max-w-5xl gap-3 md:my-0 md:justify-end md:gap-6">
         {activeQuestionIndex > 0 && (
           <Button
             onClick={() => setActiveQuestionIndex(activeQuestionIndex - 1)}
-            className="px-6 py-3 text-base font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition-all duration-300"
+            className="premium-button-secondary px-6 py-3 text-base"
           >
             Previous Question
           </Button>
@@ -57,7 +58,7 @@ const StartInterview = ({ params }) => {
         {activeQuestionIndex != mockInterviewQuestion?.length - 1 && (
           <Button
             onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
-            className="px-6 py-3 text-base font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition-all duration-300"
+            className="premium-button-secondary px-6 py-3 text-base"
           >
             Next Question
           </Button>
@@ -67,12 +68,13 @@ const StartInterview = ({ params }) => {
             href={"/dashboard/interview/" + interviewData?.mockId + "/feedback"}
           >
             <Button
-              className="px-6 py-3 text-base font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+              className="premium-button-primary px-6 py-3 text-base"
             >
               End Interview
             </Button>
           </Link>
         )}
+      </div>
       </div>
     </div>
   );

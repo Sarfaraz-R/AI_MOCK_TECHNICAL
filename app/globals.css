@@ -4,11 +4,20 @@
 
   @layer base {
     :root {
-      --background: 0 0% 100%;
-      --foreground: 0 0% 3.9%;
+      --background: 48 100% 98%;
+      --foreground: 0 0% 6%;
+      --font-sans: "Google Sans", "Fira Sans", "Nunito", sans-serif;
+      --font-display: "Archivo Black", "Fascinate Inline", "Rubik", sans-serif;
+      --font-accent: "Gelasio", "Libertinus Serif", serif;
+      --white-soft: #fffefa;
+      --white-warm: #fbf8f1;
+      --white-muted: #f6f2e8;
+      --white-line: #e9e1d2;
+      --ink: #15130f;
+      --ink-muted: #6f6a5f;
 
-      --card: 0 0% 100%;
-      --card-foreground: 0 0% 3.9%;
+      --card: 48 100% 99%;
+      --card-foreground: 0 0% 6%;
 
       --popover: 0 0% 100%;
       --popover-foreground: 0 0% 3.9%;
@@ -16,20 +25,20 @@
       --primary: 0 0% 9%;
       --primary-foreground: 0 0% 98%;
 
-      --secondary: 0 0% 96.1%;
+      --secondary: 42 47% 94%;
       --secondary-foreground: 0 0% 9%;
 
-      --muted: 0 0% 96.1%;
-      --muted-foreground: 0 0% 45.1%;
+      --muted: 42 47% 94%;
+      --muted-foreground: 41 8% 40%;
 
-      --accent: 0 0% 96.1%;
+      --accent: 42 47% 94%;
       --accent-foreground: 0 0% 9%;
 
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 89.8%;
-      --input: 0 0% 89.8%;
+      --border: 38 32% 87%;
+      --input: 38 32% 87%;
       --ring: 0 0% 3.9%;
 
       --radius: 0.5rem;
@@ -70,7 +79,271 @@
     * {
       @apply border-border;
     }
+    html {
+      @apply scroll-smooth;
+    }
     body {
-      @apply bg-background text-foreground;
+      @apply text-[#15130f] antialiased;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      background:
+        linear-gradient(rgba(211, 198, 174, 0.34) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(211, 198, 174, 0.34) 1px, transparent 1px),
+        var(--white-soft);
+      background-size: 48px 48px;
+      background-attachment: fixed;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      letter-spacing: 0;
+    }
+
+    h4,
+    h5,
+    h6,
+    button,
+    input,
+    textarea,
+    select {
+      font-family: var(--font-sans);
+    }
+
+    blockquote,
+    q {
+      font-family: var(--font-accent);
+    }
+  }
+
+  @layer components {
+    .premium-shell {
+      @apply min-h-screen bg-transparent text-[#15130f];
+    }
+
+    .premium-container {
+      @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10;
+    }
+
+    .premium-section {
+      @apply py-24 sm:py-28 lg:py-[120px];
+    }
+
+    .premium-card {
+      @apply rounded-[20px] border border-[#e9e1d2] bg-[#fffefa] shadow-[0_18px_60px_rgba(21,19,15,0.04)] transition-all duration-200 ease-out;
+    }
+
+    .premium-card-hover {
+      @apply hover:-translate-y-0.5 hover:border-[#d8ccb7] hover:shadow-[0_24px_70px_rgba(21,19,15,0.06)];
+    }
+
+    .premium-button-primary {
+      @apply inline-flex items-center justify-center rounded-xl bg-[#15130f] px-5 py-3 text-sm font-semibold text-[#fffefa] transition-all duration-200 ease-out hover:bg-[#2a251d] disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .premium-button-secondary {
+      @apply inline-flex items-center justify-center rounded-xl border border-[#e9e1d2] bg-[#fffefa] px-5 py-3 text-sm font-semibold text-[#15130f] transition-all duration-200 ease-out hover:bg-[#f6f2e8] disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .premium-input {
+      @apply w-full rounded-xl border border-[#e9e1d2] bg-[#fffefa] px-4 py-3 text-base text-[#15130f] placeholder:text-[#7a7468] outline-none transition-colors duration-200 ease-out focus:border-[#15130f] focus:ring-0;
+    }
+
+    .brand-logo {
+      font-family: "Jersey 10 Charted", "Fascinate Inline", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .testimonial-wall {
+      @apply relative space-y-5;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .testimonial-row {
+      @apply overflow-hidden;
+    }
+
+    .testimonial-track {
+      display: flex;
+      width: max-content;
+      gap: 1rem;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      animation: testimonial-marquee 34s linear infinite;
+    }
+
+    .testimonial-track-reverse {
+      animation-name: testimonial-marquee-reverse;
+      animation-duration: 42s;
+    }
+
+    .testimonial-row:hover .testimonial-track {
+      animation-play-state: paused;
+    }
+
+    .testimonial-card {
+      @apply h-[238px] w-[350px] shrink-0 rounded-[22px] border border-[#EAEAEA] bg-white p-6 shadow-[0_16px_44px_rgba(17,17,17,0.045)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#D8D8D8] hover:shadow-[0_22px_62px_rgba(17,17,17,0.08)];
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @layer utilities {
+    .bg-white {
+      background-color: var(--white-soft);
+    }
+
+    .hover\:bg-white:hover {
+      background-color: #fffdfa;
+    }
+
+    .text-white {
+      color: var(--white-soft);
+    }
+
+    .border-\[\#E5E5E5\] {
+      border-color: var(--white-line);
+    }
+
+    .bg-\[\#F8F8F8\] {
+      background-color: var(--white-warm);
+    }
+
+    .bg-\[\#F5F5F5\] {
+      background-color: var(--white-muted);
+    }
+
+    .hover\:bg-\[\#F5F5F5\]:hover {
+      background-color: #f1eadc;
+    }
+
+    .text-\[\#111111\] {
+      color: var(--ink);
+    }
+
+    .text-\[\#666666\] {
+      color: var(--ink-muted);
+    }
+
+    .placeholder\:text-\[\#666666\]::placeholder {
+      color: #7a7468;
+    }
+
+    .text-base {
+      font-size: 0.9375rem;
+      line-height: 1.45rem;
+    }
+
+    .text-lg {
+      font-size: 1rem;
+      line-height: 1.6rem;
+    }
+
+    .text-xl {
+      font-size: 1.125rem;
+      line-height: 1.65rem;
+    }
+
+    .text-2xl {
+      font-size: 1.35rem;
+      line-height: 1.9rem;
+    }
+
+    .text-3xl {
+      font-size: 1.65rem;
+      line-height: 2rem;
+    }
+
+    .text-4xl {
+      font-size: 2rem;
+      line-height: 2.35rem;
+    }
+
+    .text-5xl {
+      font-size: 2.65rem;
+      line-height: 1.05;
+    }
+
+    .text-6xl {
+      font-size: 3.15rem;
+      line-height: 1.02;
+    }
+
+    .text-7xl {
+      font-size: 3.7rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .text-4xl {
+        font-size: 1.75rem;
+        line-height: 2.1rem;
+      }
+
+      .text-5xl,
+      .text-6xl,
+      .text-7xl {
+        font-size: 2.2rem;
+        line-height: 1.08;
+      }
+    }
+  }
+
+  @keyframes testimonial-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+    }
+  }
+
+  @keyframes testimonial-marquee-reverse {
+    from {
+      transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .testimonial-wall {
+      @apply space-y-0;
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    }
+
+    .testimonial-row-secondary {
+      display: none;
+    }
+
+    .testimonial-track {
+      gap: 0.875rem;
+      animation-duration: 48s;
+    }
+
+    .testimonial-card {
+      width: min(86vw, 340px);
+      height: 230px;
+      padding: 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonial-card {
+      width: 330px;
+      height: 232px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-track,
+    .testimonial-track-reverse {
+      animation: none;
+      transform: none;
     }
   }

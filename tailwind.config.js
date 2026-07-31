@@ -18,6 +18,11 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Google Sans"', '"Fira Sans"', '"Nunito"', "sans-serif"],
+        display: ['"Archivo Black"', '"Fascinate Inline"', '"Rubik"', "sans-serif"],
+        serif: ['"Gelasio"', '"Libertinus Serif"', "serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

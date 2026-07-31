@@ -6,16 +6,17 @@ const {
 } = require("@google/generative-ai");
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const geminiModel = process.env.NEXT_PUBLIC_GEMINI_MODEL || "gemini-3.5-flash";
+const fallbackGeminiModel =
+  process.env.NEXT_PUBLIC_GEMINI_FALLBACK_MODEL || "gemini-3.5-flash-lite";
+const geminiModels = [...new Set([geminiModel, fallbackGeminiModel].filter(Boolean))];
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash", // <-- Use the current stable model
+  model: geminiModel,
 });
 
 const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
@@ -35,3 +36,60 @@ export const chatSession = model.startChat({
   generationConfig,
   safetySettings
 });
+
+export async function sendGeminiMessage(prompt) {
+  let lastError;
+
+  for (const modelName of geminiModels) {
+    try {
+      const currentModel = genAI.getGenerativeModel({ model: modelName });
+      const chat = currentModel.startChat({
+        generationConfig,
+        safetySettings,
+      });
+
+      return await chat.sendMessage(prompt);
+    } catch (error) {
+      lastError = error;
+
+      const message = error?.message || "";
+      const shouldTryFallback =
+        message.includes("[503") ||
+        message.includes("[429") ||
+        message.toLowerCase().includes("high demand") ||
+        message.toLowerCase().includes("overloaded");
+
+      if (!shouldTryFallback) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+export async function generateGeminiContent(parts) {
+  let lastError;
+
+  for (const modelName of geminiModels) {
+    try {
+      const currentModel = genAI.getGenerativeModel({ model: modelName });
+      return await currentModel.generateContent(parts);
+    } catch (error) {
+      lastError = error;
+
+      const message = error?.message || "";
+      const shouldTryFallback =
+        message.includes("[503") ||
+        message.includes("[429") ||
+        message.toLowerCase().includes("high demand") ||
+        message.toLowerCase().includes("overloaded");
+
+      if (!shouldTryFallback) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError;
+}

@@ -60,39 +60,34 @@ const Contect = () => {
   };
 
   return (
-    <div className="container mx-auto text-center">
-      <h2 className="text-4xl font-bold text-white mb-4">Get In Touch</h2>
-      <p className="mt-4 text-lg text-gray-300">
-        Have any questions? Reach out to us and we'll get back to you as soon as
-        possible.
-      </p>
-      <div className="mt-8">
+    <div className="mx-auto text-center">
+      <div className="mt-6">
         <form onSubmit={onSubmit} className="max-w-xl mx-auto">
           <input
             type="text"
             placeholder="Your Name"
             value={name}
             onChange={handleInputChange(setName)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+            className="premium-input mb-4"
           />
           <input
             type="email"
             placeholder="Your Email"
             value={email}
             onChange={handleInputChange(setEmail)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+            className="premium-input mb-4"
           />
           <textarea
             placeholder="Your Message"
             value={message}
             onChange={handleInputChange(setMessage)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+            className="premium-input mb-4"
             rows="4"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="premium-button-primary px-5 py-3 text-sm"
           >
             {loading ? (
               <LoaderCircle className="animate-spin mx-auto" />

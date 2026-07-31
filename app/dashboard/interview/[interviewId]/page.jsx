@@ -28,37 +28,38 @@ const Interview = ({ params }) => {
     setInterviewData(result[0]);
   };
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white pt-24 px-10 pb-10">
-      <h2 className="font-bold text-3xl mb-8 text-center">Let's Get Started</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+    <div className="premium-shell pt-36 pb-24">
+      <div className="premium-container">
+      <h2 className="mb-12 text-center text-5xl font-extrabold tracking-tight text-[#111111]">Let's Get Started</h2>
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-2">
         <div className="flex flex-col my-5 gap-5">
-          <div className="flex flex-col p-6 rounded-lg border border-gray-700 bg-gray-800/50 backdrop-blur-sm gap-4">
-            <h2 className="text-lg text-gray-300">
-              <strong className="text-white">Job Role/Job Position: </strong>
+          <div className="premium-card flex flex-col gap-4 p-6">
+            <h2 className="text-lg text-[#666666]">
+              <strong className="text-[#111111]">Job Role/Job Position: </strong>
               {interviewData?.jobPosition}
             </h2>
-            <h2 className="text-lg text-gray-300">
-              <strong className="text-white">Job Description/Job Stack: </strong>
+            <h2 className="text-lg text-[#666666]">
+              <strong className="text-[#111111]">Job Description/Job Stack: </strong>
               {interviewData?.jobDesc}
             </h2>
-            <h2 className="text-lg text-gray-300">
-              <strong className="text-white">Years of Experience: </strong>
+            <h2 className="text-lg text-[#666666]">
+              <strong className="text-[#111111]">Years of Experience: </strong>
               {interviewData?.jobExperience}
             </h2>
           </div>
-          <div className="p-6 border rounded-lg border-yellow-600 bg-yellow-900/20 backdrop-blur-sm">
-            <h2 className="flex gap-2 items-center text-yellow-400 mb-3">
-              <Lightbulb className="text-yellow-400" size={20} />
+          <div className="rounded-[20px] border border-[#E5E5E5] bg-[#F8F8F8] p-6">
+            <h2 className="mb-3 flex items-center gap-2 text-[#111111]">
+              <Lightbulb className="text-[#111111]" size={20} />
               <strong className="font-semibold">Information</strong>
             </h2>
-            <h2 className="mt-2 text-yellow-300 text-sm">
+            <h2 className="mt-2 text-sm leading-6 text-[#666666]">
               {process.env.NEXT_PUBLIC_INFORMATION}
             </h2>
           </div>
         </div>
         <div>
           {webCamEnabled ? (
-            <div className=" flex items-center justify-center p-5 rounded-lg bg-gray-800/50 backdrop-blur-sm">
+            <div className="premium-card flex items-center justify-center p-5">
               <Webcam
                 onUserMedia={() => setWebCamEnabled(true)}
                 onUserMediaError={() => setWebCamEnabled(false)}
@@ -69,12 +70,12 @@ const Interview = ({ params }) => {
             </div>
           ) : (
             <div className="flex items-center justify-center">
-              <WebcamIcon className="h-72 w-full my-6 p-20 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-700 text-gray-200" />
+              <WebcamIcon className="my-6 h-72 w-full rounded-[20px] border border-[#E5E5E5] bg-white p-20 text-[#111111]" />
             </div>
           )}
           <div className="mt-4">
             <Button
-              className={`w-full px-8 py-4 text-lg font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition-all duration-300`}
+              className="premium-button-secondary w-full px-8 py-4 text-base"
               onClick={() => setWebCamEnabled((prev) => !prev)}
             >
               {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
@@ -82,14 +83,15 @@ const Interview = ({ params }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-8 md:justify-end md:items-end max-w-5xl mx-auto">
+      <div className="mx-auto mt-8 flex max-w-5xl justify-center md:items-end md:justify-end">
         <Link href={"/dashboard/interview/" + params.interviewId + "/start"}>
           <Button
-            className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+            className="premium-button-primary px-8 py-4 text-base"
           >
             Start Interview
           </Button>
         </Link>
+      </div>
       </div>
     </div>
   );

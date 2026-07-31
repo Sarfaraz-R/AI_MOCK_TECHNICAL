@@ -30,16 +30,16 @@ const InterviewList = () => {
   };
   return (
     <div>
-      <h2 className="font-bold text-2xl mb-4 text-white">Previous Mock Interview</h2>
+      <h2 className="mb-5 text-2xl font-bold tracking-tight text-[#111111]">Previous Mock Interviews</h2>
   
       {interviewList ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-3">
+        <div className="my-3 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {interviewList.map((interview, index) => (
             <InterviewItemCard key={index} interview={interview} />
           ))}
         </div>
       ) : (
-        <p className="text-gray-400">Loading previous interviews...</p>
+        <p className="text-[#666666]">Loading previous interviews...</p>
       )}
     </div>
   );

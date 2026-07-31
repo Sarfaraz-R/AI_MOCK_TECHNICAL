@@ -6,13 +6,12 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import Webcam from "react-webcam";
 import { Mic, WebcamIcon } from "lucide-react";
 import { toast } from "sonner";
-import { chatSession } from "@/utils/GeminiAIModal";
+import { generateGeminiContent, sendGeminiMessage } from "@/utils/GeminiAIModal";
 import { db } from "@/utils/db";
 import { UserAnswer } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { WebCamContext } from "@/app/dashboard/layout";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const RecordAnswerSection = ({
   mockInterviewQuestion,
@@ -26,8 +25,6 @@ const RecordAnswerSection = ({
   const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
-
-  const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
   useEffect(() => {
     if (!isRecording && userAnswer.length > 10) {
@@ -70,29 +67,30 @@ const RecordAnswerSection = ({
   const transcribeAudio = async (audioBlob) => {
     try {
       setLoading(true);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
-      // Convert audio blob to base64
-      const reader = new FileReader();
-      reader.readAsDataURL(audioBlob);
-      reader.onloadend = async () => {
-        const base64Audio = reader.result.split(',')[1];
-        
-        const result = await model.generateContent([
-          "Transcribe the following audio:",
-          { inlineData: { data: base64Audio, mimeType: "audio/webm" } },
-        ]);
+      const base64Audio = await blobToBase64(audioBlob);
 
-        const transcription = result.response.text();
-        setUserAnswer((prevAnswer) => prevAnswer + " " + transcription);
-        setLoading(false);
-      };
+      const result = await generateGeminiContent([
+        "Transcribe the following audio:",
+        { inlineData: { data: base64Audio, mimeType: "audio/webm" } },
+      ]);
+
+      const transcription = result.response.text();
+      setUserAnswer((prevAnswer) => prevAnswer + " " + transcription);
     } catch (error) {
       console.error("Error transcribing audio:", error);
       toast("Error transcribing audio. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
+
+  const blobToBase64 = (audioBlob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(audioBlob);
+    });
 
   const updateUserAnswer = async () => {
     try {
@@ -106,7 +104,7 @@ const RecordAnswerSection = ({
         " please give us rating for answer and feedback as area of improvement if any " +
         "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
 
-      const result = await chatSession.sendMessage(feedbackPrompt);
+      const result = await sendGeminiMessage(feedbackPrompt);
 
       let MockJsonResp = result.response.text();
       console.log(MockJsonResp);
@@ -147,14 +145,14 @@ const RecordAnswerSection = ({
 
   return (
     <div className="flex flex-col items-center justify-center overflow-hidden h-full">
-      <div className="flex flex-col justify-center items-center rounded-lg p-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mt-4 w-full max-w-md aspect-video">
+      <div className="premium-card mt-4 flex aspect-video w-full max-w-md flex-col items-center justify-center p-5">
         {webCamEnabled ? (
           <Webcam
             mirrored={true}
             style={{ height: "100%", width: "100%", zIndex: 10, objectFit: 'cover', borderRadius: '0.5rem' }}
           />
         ) : (
-          <div className="flex flex-col items-center justify-center w-full h-full text-gray-400">
+          <div className="flex h-full w-full flex-col items-center justify-center text-[#666666]">
             <WebcamIcon size={64} className="mb-4" />
             <span className="text-lg">Enable Video Web Cam and Microphone to Start</span>
           </div>
@@ -163,7 +161,7 @@ const RecordAnswerSection = ({
       <div className="md:flex mt-4 md:mt-8 md:gap-5 w-full max-w-md">
         <div className="my-4 md:my-0 w-full">
           <Button onClick={() => setWebCamEnabled((prev) => !prev)}
-             className="w-full px-8 py-4 text-lg font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition-all duration-300"
+             className="premium-button-secondary w-full px-8 py-4 text-base"
           >
             {webCamEnabled ? "Close WebCam" : "Enable WebCam"}
           </Button>
@@ -172,7 +170,7 @@ const RecordAnswerSection = ({
           variant="outline"
           onClick={isRecording ? stopRecording : startRecording}
           disabled={loading}
-          className={`w-full px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 ${isRecording ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'}`}
+          className={`w-full rounded-xl px-8 py-4 text-base font-semibold transition-all duration-200 ${isRecording ? 'border-[#111111] bg-[#222222] text-white hover:bg-[#111111]' : 'border-[#111111] bg-[#111111] text-white hover:bg-[#222222]'}`}
         >
           {isRecording ? (
             <h2 className="flex gap-2 items-center">

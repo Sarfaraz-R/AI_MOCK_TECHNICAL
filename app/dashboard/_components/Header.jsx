@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
-import { Brain } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isUserButtonLoaded, setUserButtonLoaded] = useState(false);
@@ -16,7 +15,7 @@ const Header = () => {
   };
 
   const SkeletonLoader = () => (
-    <div className="w-8 h-8 bg-gray-700 rounded-full animate-pulse"></div>
+    <div className="h-8 w-8 animate-pulse rounded-full bg-[#EFEFEF]"></div>
   );
 
   useEffect(() => {
@@ -34,17 +33,16 @@ const Header = () => {
   }, [path]);
 
   return (
-    <div className="w-full py-4 backdrop-blur-md bg-black/30 fixed top-0 z-50">
-      <div className="container mx-auto flex gap-4 items-center justify-between px-6">
-        <Link className="hidden md:flex items-center gap-2" href="/dashboard">
-          <Brain size={32} className="text-blue-400" />
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">AI Mock Interview</span>
+    <div className="fixed top-0 z-50 w-full px-4 py-4">
+      <div className="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-3">
+        <Link className="brand-logo hidden text-4xl text-[#111111] md:flex" href="/dashboard">
+          Scribo
         </Link>
-        <ul className="hidden md:flex gap-6">
+        <ul className="hidden items-center p-1 text-sm font-medium md:flex">
           <Link href="/dashboard">
             <li
-              className={`hover:text-white transition-colors cursor-pointer ${
-                path == "/dashboard" ? "text-white font-bold" : "text-gray-300"
+              className={`rounded-lg px-4 py-2 transition-colors ${
+                path == "/dashboard" ? "bg-white/70 text-[#111111] shadow-[0_1px_8px_rgba(17,17,17,0.04)]" : "text-[#666666] hover:bg-white/70 hover:text-[#111111]"
               }`}
             >
               Dashboard
@@ -52,8 +50,8 @@ const Header = () => {
           </Link>
           <Link href="/dashboard/question">
             <li
-              className={`hover:text-white transition-colors cursor-pointer ${
-                path == "/dashboard/question" ? "text-white font-bold" : "text-gray-300"
+              className={`rounded-lg px-4 py-2 transition-colors ${
+                path == "/dashboard/question" ? "bg-white/70 text-[#111111] shadow-[0_1px_8px_rgba(17,17,17,0.04)]" : "text-[#666666] hover:bg-white/70 hover:text-[#111111]"
               }`}
             >
               Questions
@@ -61,8 +59,8 @@ const Header = () => {
           </Link>
           <Link href="/dashboard/upgrade">
             <li
-              className={`hover:text-white transition-colors cursor-pointer ${
-                path == "/dashboard/upgrade" ? "text-white font-bold" : "text-gray-300"
+              className={`rounded-lg px-4 py-2 transition-colors ${
+                path == "/dashboard/upgrade" ? "bg-white/70 text-[#111111] shadow-[0_1px_8px_rgba(17,17,17,0.04)]" : "text-[#666666] hover:bg-white/70 hover:text-[#111111]"
               }`}
             >
               Upgrade
@@ -71,8 +69,8 @@ const Header = () => {
 
           <Link href="/dashboard/howit">
             <li
-              className={`hover:text-white transition-colors cursor-pointer ${
-                path == "/dashboard/howit" ? "text-white font-bold" : "text-gray-300"
+              className={`rounded-lg px-4 py-2 transition-colors ${
+                path == "/dashboard/howit" ? "bg-white/70 text-[#111111] shadow-[0_1px_8px_rgba(17,17,17,0.04)]" : "text-[#666666] hover:bg-white/70 hover:text-[#111111]"
               }`}
             >
               How it works?
@@ -80,30 +78,22 @@ const Header = () => {
           </Link>
         </ul>
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+          <button onClick={toggleMenu} className="inline-flex items-center justify-center rounded-xl border border-[#E5E5E5] bg-white p-2 text-[#111111] transition-colors hover:bg-[#F5F5F5] focus:outline-none">
             <span className="sr-only">Open main menu</span>
-            {isOpen ? (
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            )}
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-        <div className="flex gap-10 items-center" >
+        <div className="flex items-center gap-4" >
           <ModeToggle  />
           {isUserButtonLoaded ? <UserButton afterSignOutUrl="/" /> : <SkeletonLoader />}
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden bg-gray-800/90 backdrop-blur-sm px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="mx-auto mt-2 max-w-[1180px] space-y-1 rounded-2xl border border-[#E5E5E5] bg-white p-2 shadow-[0_16px_50px_rgba(17,17,17,0.06)] md:hidden">
           <Link href="/dashboard">
             <li
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-gray-700 transition-colors ${
-                path == "/dashboard" ? "text-white bg-gray-700" : "text-gray-300"
+              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                path == "/dashboard" ? "bg-[#F5F5F5] text-[#111111]" : "text-[#666666] hover:bg-[#F5F5F5] hover:text-[#111111]"
               }`}
             >
               Dashboard
@@ -111,8 +101,8 @@ const Header = () => {
           </Link>
           <Link href="/dashboard/question">
             <li
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-gray-700 transition-colors ${
-                path == "/dashboard/question" ? "text-white bg-gray-700" : "text-gray-300"
+              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                path == "/dashboard/question" ? "bg-[#F5F5F5] text-[#111111]" : "text-[#666666] hover:bg-[#F5F5F5] hover:text-[#111111]"
               }`}
             >
               Questions
@@ -120,8 +110,8 @@ const Header = () => {
           </Link>
           <Link href="/dashboard/upgrade">
             <li
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-gray-700 transition-colors ${
-                path == "/dashboard/upgrade" ? "text-white bg-gray-700" : "text-gray-300"
+              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                path == "/dashboard/upgrade" ? "bg-[#F5F5F5] text-[#111111]" : "text-[#666666] hover:bg-[#F5F5F5] hover:text-[#111111]"
               }`}
             >
               Upgrade
@@ -129,8 +119,8 @@ const Header = () => {
           </Link>
           <Link href="/dashboard/howit">
             <li
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-gray-700 transition-colors ${
-                path == "/dashboard/howit" ? "text-white bg-gray-700" : "text-gray-300"
+              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                path == "/dashboard/howit" ? "bg-[#F5F5F5] text-[#111111]" : "text-[#666666] hover:bg-[#F5F5F5] hover:text-[#111111]"
               }`}
             >
               How it works?
