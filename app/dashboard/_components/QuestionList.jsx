@@ -1,14 +1,14 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
 import { db } from "@/utils/db";
 import { Question } from "@/utils/schema";
 import { desc, eq } from "drizzle-orm";
 import QuestionItemCard from "./QuestionItemCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/components/AuthProvider";
 
 const QuestionList = () => {
-  const { user } = useUser();
+  const { user } = useAuth();
   const [questionList, setQuestionList] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const QuestionList = () => {
     const result = await db
       .select()
       .from(Question)
-      .where(eq(Question.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .where(eq(Question.createdBy, user?.email))
       .orderBy(desc(Question.id));
 
     console.log(result);

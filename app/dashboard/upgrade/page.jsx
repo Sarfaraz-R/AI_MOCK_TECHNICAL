@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import PricingPlan from "../_components/PricingPlan";
-import { useUser } from "@clerk/nextjs";
 import { ArrowRight, Check, Sparkles, Zap } from "lucide-react";
+import { useAuth } from "@/components/AuthProvider";
 
 const planHighlights = {
   Monthly: [
@@ -20,7 +20,7 @@ const planHighlights = {
 };
 
 const Upgrade = () => {
-  const { user } = useUser();
+  const { user } = useAuth();
 
   return (
     <main className="min-h-screen bg-transparent px-5 pb-16 pt-28 text-[#15130f] dark:bg-[#000000] dark:text-[#ffffff] sm:px-8 lg:px-10">
@@ -90,7 +90,7 @@ const Upgrade = () => {
                 href={
                   item.link +
                   "?prefilled_email=" +
-                  user?.primaryEmailAddress?.emailAddress
+                  user?.email
                 }
                 target="_blank"
                 rel="noreferrer"

@@ -9,9 +9,9 @@ import { toast } from "sonner";
 import { generateGeminiContent, sendGeminiMessage } from "@/utils/GeminiAIModal";
 import { db } from "@/utils/db";
 import { UserAnswer } from "@/utils/schema";
-import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { WebCamContext } from "@/app/dashboard/layout";
+import { useAuth } from "@/components/AuthProvider";
 
 const RecordAnswerSection = ({
   mockInterviewQuestion,
@@ -19,7 +19,7 @@ const RecordAnswerSection = ({
   interviewData,
 }) => {
   const [userAnswer, setUserAnswer] = useState("");
-  const { user } = useUser();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
@@ -127,7 +127,7 @@ const RecordAnswerSection = ({
         userAns: userAnswer,
         feedback: jsonFeedbackResp?.feedback,
         rating: jsonFeedbackResp?.rating,
-        userEmail: user?.primaryEmailAddress?.emailAddress,
+        userEmail: user?.email,
         createdAt: moment().format("YYYY-MM-DD"),
       });
 

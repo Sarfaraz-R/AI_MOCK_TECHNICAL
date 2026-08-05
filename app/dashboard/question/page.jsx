@@ -1,4 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
 import React from "react";
 import AddQuestions from "../_components/AddQuestions";
 import QuestionList from "../_components/QuestionList";

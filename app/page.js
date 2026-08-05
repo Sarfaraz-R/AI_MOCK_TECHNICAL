@@ -141,7 +141,7 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial, ariaHidden = false }) => (
-  <article className="testimonial-card" aria-label={`Testimonial from ${testimonial.name}`} aria-hidden={ariaHidden}>
+  <article className="testimonial-card interactive-card" aria-label={`Testimonial from ${testimonial.name}`} aria-hidden={ariaHidden}>
     <div className="mb-5 flex items-center gap-3">
       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#EAEAEA] bg-[#F8F8F8] text-sm font-bold text-[#111111]">
         {testimonial.initials}
@@ -269,7 +269,7 @@ const FeatureCard = ({ feature, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay: Math.min(index * 0.04, 0.28), duration: 0.35 }}
-      className={`group rounded-[22px] border border-[#EAEAEA] bg-white p-4 shadow-[0_14px_40px_rgba(17,17,17,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#D8D8D8] hover:shadow-[0_20px_56px_rgba(17,17,17,0.07)] sm:p-5 ${feature.wide ? "sm:col-span-2 lg:col-span-2" : ""}`}
+      className={`interactive-card group rounded-[22px] border border-[#EAEAEA] bg-white p-4 shadow-[0_14px_40px_rgba(17,17,17,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#D8D8D8] hover:shadow-[0_20px_56px_rgba(17,17,17,0.07)] sm:p-5 ${feature.wide ? "sm:col-span-2 lg:col-span-2" : ""}`}
     >
       <FeatureVisual type={feature.visual} Icon={Icon} />
       <div className="mt-5">
@@ -358,25 +358,22 @@ const page = () => {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#666666]">How practice flows</p>
                 <div className="hidden h-px flex-1 bg-[#E5E5E5] sm:block" />
               </div>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="interactive-card-grid practice-flow-grid grid gap-4 md:grid-cols-3">
                 {[
                   {
                     icon: <UserRound className="h-5 w-5" />,
                     title: "Role profile",
                     description: "Add the role, stack, and experience level so each session matches your target job.",
-                    progress: "55%",
                   },
                   {
                     icon: <ListChecks className="h-5 w-5" />,
                     title: "AI questions",
                     description: "Practice focused questions that adapt to the details you provide.",
-                    progress: "72%",
                   },
                   {
                     icon: <Sparkles className="h-5 w-5" />,
                     title: "Feedback loop",
                     description: "Review answers, polish weak spots, and build confidence before the real call.",
-                    progress: "88%",
                   },
                 ].map((item, index) => (
                   <motion.div
@@ -385,7 +382,7 @@ const page = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.12 }}
-                    className="premium-card premium-card-hover p-6"
+                    className="interactive-card premium-card practice-flow-card p-6"
                   >
                     <div className="mb-7 flex items-center justify-between">
                       <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#E5E5E5] bg-[#F5F5F5] text-[#111111]">
@@ -397,9 +394,6 @@ const page = () => {
                     </div>
                     <h3 className="mb-2 text-lg font-bold text-[#111111]">{item.title}</h3>
                     <p className="min-h-[72px] text-sm leading-6 text-[#666666]">{item.description}</p>
-                    <div className="mt-6 h-1.5 w-full rounded-full bg-[#F5F5F5]">
-                      <div className="h-1.5 rounded-full bg-[#111111]" style={{ width: item.progress }} />
-                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -409,12 +403,7 @@ const page = () => {
 
         <section
           id="features"
-          className="bg-white py-16 sm:py-20"
-          style={{
-            backgroundImage:
-              "linear-gradient(#F5F5F5 1px, transparent 1px), linear-gradient(90deg, #F5F5F5 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
+          className="py-16 sm:py-20"
         >
           <div className="premium-container">
             <motion.div
@@ -433,7 +422,7 @@ const page = () => {
                 Practice with intelligent AI interviewers, receive instant personalized feedback, analyze your performance, and prepare confidently for top tech companies—all in one platform.
               </p>
             </motion.div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="interactive-card-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {featureItems.map((feature, index) => (
                 <FeatureCard key={feature.title} feature={feature} index={index} />
               ))}
@@ -441,7 +430,7 @@ const page = () => {
           </div>
         </section>
 
-        <section id="testimonials" className="overflow-hidden py-16 sm:py-20">
+        <section id="testimonials" className="overflow-visible py-16 sm:py-20">
           <div className="premium-container">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -455,7 +444,7 @@ const page = () => {
               </p>
             </motion.div>
           </div>
-          <div className="testimonial-wall" aria-hidden="true">
+          <div className="testimonial-wall interactive-card-grid" aria-hidden="true">
             <TestimonialRow items={testimonials} />
             <TestimonialRow items={[...testimonials].reverse()} reverse className="testimonial-row-secondary" />
           </div>

@@ -1,5 +1,19 @@
-import { serial, text, varchar } from "drizzle-orm/pg-core";
+import { serial, text, varchar, uniqueIndex } from "drizzle-orm/pg-core";
 import { pgTable } from "drizzle-orm/pg-core";
+
+export const AppUser = pgTable(
+    "app_user",
+    {
+        id: serial("id").primaryKey(),
+        name: varchar("name").notNull(),
+        email: varchar("email").notNull(),
+        passwordHash: text("passwordHash").notNull(),
+        createdAt: varchar("createdAt").notNull(),
+    },
+    (table) => ({
+        emailIdx: uniqueIndex("app_user_email_idx").on(table.email),
+    })
+);
 
 export const MockInterview = pgTable('mockInterview', {
     id: serial('id').primaryKey(),

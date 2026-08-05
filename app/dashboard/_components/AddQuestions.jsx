@@ -16,10 +16,10 @@ import { LoaderCircle } from "lucide-react";
 import { chatSession } from "@/utils/GeminiAIModal";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/db";
-import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { Question } from "@/utils/schema";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/AuthProvider";
 
 const AddQuestions = () => {
   const [openDailog, setOpenDialog] = useState(false);
@@ -30,7 +30,7 @@ const AddQuestions = () => {
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
   const [questionJsonResponse, setQuestionJsonResponse] = useState([]);
-  const { user } = useUser();
+  const { user } = useAuth();
   const router = useRouter();
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
@@ -83,7 +83,7 @@ const AddQuestions = () => {
             jobExperience: jobExperience,
             typeQuestion: typeQuestion,
             company: company,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
+            createdBy: user?.email,
             createdAt: moment().format("YYYY-MM-DD"),
           })
           .returning({ mockId: Question.mockId });

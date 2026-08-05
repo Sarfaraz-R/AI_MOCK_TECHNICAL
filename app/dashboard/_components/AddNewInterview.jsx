@@ -18,10 +18,10 @@ import { LoaderCircle } from "lucide-react";
 import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
-import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useAuth } from "@/components/AuthProvider";
 
 const AddNewInterview = () => {
   const [openDailog, setOpenDialog] = useState(false);
@@ -30,7 +30,7 @@ const AddNewInterview = () => {
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
-  const { user } = useUser();
+  const { user } = useAuth();
   const router = useRouter();
 
   const onSubmit = async (e) => {
@@ -63,7 +63,7 @@ const AddNewInterview = () => {
           jobPosition: jobPosition,
           jobDesc: jobDesc,
           jobExperience: jobExperience,
-          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdBy: user?.email,
           createdAt: moment().format("YYYY-MM-DD"),
         })
         .returning({ mockId: MockInterview.mockId });
