@@ -33,7 +33,7 @@ export default function UserMenu() {
       <button
         type="button"
         onClick={handleSignOut}
-        className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-white/75 transition-colors hover:bg-white/15 hover:text-[#ffffff] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
+        className="premium-button-animated inline-flex items-center gap-1 rounded-lg border border-transparent px-2 py-1 text-sm text-white/75 [--button-bg:transparent] [--button-hover-bg:rgba(255,255,255,0.15)] [--button-text:rgba(255,255,255,0.75)] [--button-text-hover:#ffffff] dark:text-white/70 dark:[--button-hover-bg:rgba(255,255,255,0.1)] dark:[--button-text:rgba(255,255,255,0.7)] dark:[--button-text-hover:#ffffff]"
       >
         <LogOut className="h-4 w-4" />
         <span className="hidden sm:inline">Logout</span>

@@ -93,3 +93,37 @@ export async function generateGeminiContent(parts) {
 
   throw lastError;
 }
+
+export async function generateGeminiContentWithConfig(parts, customGenerationConfig = {}) {
+  let lastError;
+  const mergedGenerationConfig = {
+    ...generationConfig,
+    ...customGenerationConfig,
+  };
+
+  for (const modelName of geminiModels) {
+    try {
+      const currentModel = genAI.getGenerativeModel({ model: modelName });
+      return await currentModel.generateContent({
+        contents: [{ role: "user", parts }],
+        generationConfig: mergedGenerationConfig,
+        safetySettings,
+      });
+    } catch (error) {
+      lastError = error;
+
+      const message = error?.message || "";
+      const shouldTryFallback =
+        message.includes("[503") ||
+        message.includes("[429") ||
+        message.toLowerCase().includes("high demand") ||
+        message.toLowerCase().includes("overloaded");
+
+      if (!shouldTryFallback) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError;
+}

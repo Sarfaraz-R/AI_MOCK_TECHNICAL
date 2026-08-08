@@ -3,18 +3,16 @@ import React, { useState } from "react";
 
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { sendGeminiMessage } from "@/utils/GeminiAIModal";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, MessageSquarePlus } from "lucide-react";
 import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
@@ -85,12 +83,26 @@ const AddNewInterview = () => {
   return (
     <div>
       <div
-        className="premium-card premium-card-hover flex cursor-pointer flex-col items-center justify-center p-10 text-[#111111]"
-        onClick={() => setOpenDialog(true)}
+        className="premium-card flex min-h-[265px] flex-col justify-between p-7 text-[#111111]"
       >
-        <h2 className="text-center text-lg font-semibold">+ Add New</h2>
+        <div>
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#bbf7d0] bg-[#dcfce7] text-[#166534]">
+            <MessageSquarePlus className="h-6 w-6" />
+          </div>
+          <h2 className="mt-8 text-xl font-bold tracking-tight text-[#111111]">Start Mock Interview</h2>
+          <p className="mt-3 max-w-md text-base font-medium leading-7 text-[#666666]">
+            Generate a tailored AI interview for your role and experience.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setOpenDialog(true)}
+          className="premium-button-primary mt-8 h-12 w-full"
+        >
+          Start
+        </button>
       </div>
-      <Dialog open={openDailog}>
+      <Dialog open={openDailog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-2xl rounded-[20px] border-[#E5E5E5] bg-white text-[#111111] shadow-[0_24px_80px_rgba(17,17,17,0.08)]">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold tracking-tight text-[#111111]">

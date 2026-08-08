@@ -15,6 +15,14 @@ const steps = [
     description:
       "Choose the interview type, add the role details, and give Scribo enough context to shape a focused practice session.",
     progress: "55%",
+    accent: {
+      border: "border-[#294f70]",
+      bg: "bg-[#102234]",
+      text: "text-[#8fc7ff]",
+      soft: "bg-[#eaf4ff]",
+      softText: "text-[#31567a]",
+      bar: "bg-[#5ea8ff]",
+    },
   },
   {
     value: "item-2",
@@ -23,6 +31,14 @@ const steps = [
     description:
       "Answer realistic questions in a calm workspace while the AI evaluates clarity, relevance, confidence, and structure.",
     progress: "72%",
+    accent: {
+      border: "border-[#5a4a19]",
+      bg: "bg-[#2d240c]",
+      text: "text-[#f6d36d]",
+      soft: "bg-[#fff6df]",
+      softText: "text-[#6f5710]",
+      bar: "bg-[#f0bd43]",
+    },
   },
   {
     value: "item-3",
@@ -31,6 +47,14 @@ const steps = [
     description:
       "Review detailed feedback, spot weak areas, and use the next session to make your answers sharper and more confident.",
     progress: "88%",
+    accent: {
+      border: "border-[#2e4232]",
+      bg: "bg-[#132318]",
+      text: "text-[#8ce3a5]",
+      soft: "bg-[#eaf9ef]",
+      softText: "text-[#2f6a42]",
+      bar: "bg-[#53cc79]",
+    },
   },
 ];
 
@@ -69,10 +93,10 @@ const HowItWorks = () => {
                   className="rounded-[22px] border border-[#e9e1d2] bg-[#fffefa] p-6 shadow-[0_18px_60px_rgba(21,19,15,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d8ccb7] hover:shadow-[0_24px_70px_rgba(21,19,15,0.07)] dark:border-[#ffffff] dark:bg-[#000000] dark:shadow-none"
                 >
                   <div className="mb-7 flex items-center justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#e9e1d2] bg-[#f6f2e8] text-[#15130f] dark:border-[#ffffff] dark:bg-[#000000] dark:text-[#ffffff]">
+                    <span className={`flex h-10 w-10 items-center justify-center rounded-xl border ${step.accent.border} ${step.accent.bg} ${step.accent.text} dark:border-[#ffffff] dark:bg-[#000000] dark:text-[#ffffff]`}>
                       <Icon className="h-5 w-5" strokeWidth={1.8} />
                     </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6f6a5f] dark:text-[#ffffff]">
+                    <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${step.accent.soft} ${step.accent.softText} dark:bg-[#111111] dark:text-[#ffffff]`}>
                       0{index + 1}
                     </span>
                   </div>
@@ -82,8 +106,8 @@ const HowItWorks = () => {
                   <p className="min-h-[96px] text-sm font-medium leading-6 text-[#6f6a5f] dark:text-[#ffffff]">
                     {step.description}
                   </p>
-                  <div className="mt-6 h-1.5 w-full rounded-full bg-[#f6f2e8] dark:bg-[#ffffff]">
-                    <div className="h-1.5 rounded-full bg-[#15130f] dark:bg-[#000000]" style={{ width: step.progress }} />
+                  <div className="mt-6 h-1.5 w-full rounded-full bg-[#f6f2e8] dark:bg-[#1a1a1a]">
+                    <div className={`h-1.5 rounded-full ${step.accent.bar} dark:bg-[#ffffff]`} style={{ width: step.progress }} />
                   </div>
                 </article>
               );
@@ -95,11 +119,11 @@ const HowItWorks = () => {
               <AccordionItem key={step.value} value={step.value} className="border-[#e9e1d2] last:border-b-0 dark:border-[#ffffff]">
                 <AccordionTrigger className="gap-4 text-left text-base font-bold text-[#15130f] hover:no-underline dark:text-[#ffffff] sm:text-lg">
                   <span className="flex items-center gap-3">
-                    <CheckCircle2 className="h-5 w-5 shrink-0" strokeWidth={1.8} />
+                    <CheckCircle2 className={`h-5 w-5 shrink-0 ${step.accent.text}`} strokeWidth={1.8} />
                     {step.title}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="rounded-2xl bg-[#f6f2e8] p-4 text-sm font-medium leading-6 text-[#6f6a5f] dark:bg-[#000000] dark:text-[#ffffff]">
+                <AccordionContent className={`rounded-2xl ${step.accent.soft} p-4 text-sm font-medium leading-6 text-[#6f6a5f] dark:bg-[#111111] dark:text-[#ffffff]`}>
                   <p>{step.description}</p>
                 </AccordionContent>
               </AccordionItem>

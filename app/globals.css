@@ -220,13 +220,145 @@
         0 0 34px rgba(235, 229, 217, 0.12);
     }
 
+    .interview-hover-shell {
+      position: relative;
+      min-height: 20rem;
+      overflow: visible;
+    }
+
+    .interview-hover-main {
+      position: absolute;
+      inset: 3.5rem 0 auto;
+      z-index: 3;
+      transition:
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+    }
+
+    .interview-hover-panel {
+      position: absolute;
+      left: 0.75rem;
+      right: 0.75rem;
+      height: 5rem;
+      z-index: 2;
+      opacity: 0;
+      transition:
+        transform 0.4s ease,
+        opacity 0.25s ease,
+        box-shadow 0.4s ease,
+        background-color 0.4s ease,
+        border-color 0.4s ease;
+      pointer-events: none;
+    }
+
+    .interview-hover-panel-top {
+      top: 1.1rem;
+      transform: translateY(4.3rem);
+    }
+
+    .interview-hover-panel-bottom {
+      bottom: 1.1rem;
+      transform: translateY(-4.3rem);
+    }
+
+    .interview-hover-shell:hover .interview-hover-panel {
+      opacity: 1;
+      pointer-events: auto;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    }
+
+    .interview-hover-shell:hover .interview-hover-panel-top {
+      transform: translateY(-2.2rem);
+    }
+
+    .interview-hover-shell:hover .interview-hover-panel-bottom {
+      transform: translateY(1.6rem);
+    }
+
+    .interview-hover-shell:hover .interview-hover-main {
+      background:
+        linear-gradient(135deg, #d7f7e7 0%, #f3fff8 52%, #c8f1df 100%);
+      border-color: #8bd3b1;
+      box-shadow: 0 26px 70px rgba(53, 122, 91, 0.28);
+    }
+
+    .interview-hover-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(21, 19, 15, 0.12);
+      background: rgba(255, 255, 255, 0.58);
+      color: #15130f;
+      flex-shrink: 0;
+    }
+
+    .interview-hover-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-top: 2rem;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #567564;
+    }
+
+    .premium-button-animated,
+    .premium-button-primary,
+    .premium-button-secondary {
+      background-color: var(--button-bg, #ffffff);
+      color: var(--button-text, #000000);
+      border: none;
+      border-radius: 9999px;
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.08);
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      outline: none;
+      text-transform: uppercase;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .premium-button-animated:hover:not(:disabled),
+    .premium-button-primary:hover:not(:disabled),
+    .premium-button-secondary:hover:not(:disabled) {
+      background-color: var(--button-hover-bg, #f8f8f8);
+      color: var(--button-text-hover, #000000);
+      box-shadow: 0 7px 14px rgba(15, 23, 42, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .premium-button-animated:active:not(:disabled),
+    .premium-button-primary:active:not(:disabled),
+    .premium-button-secondary:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
     .premium-button-primary {
-      @apply inline-flex items-center justify-center rounded-xl bg-[#15130f] px-5 py-3 text-sm font-semibold text-[#fffefa] transition-all duration-200 ease-out hover:bg-[#2a251d] disabled:cursor-not-allowed disabled:opacity-50;
+      @apply inline-flex items-center justify-center px-3 py-1.5 text-[10px] font-semibold disabled:cursor-not-allowed disabled:opacity-50;
+      --button-bg: #ffffff;
+      --button-hover-bg: #f8f8f8;
+      --button-text: #000000;
+      --button-text-hover: #000000;
     }
 
     .premium-button-secondary {
-      @apply inline-flex items-center justify-center rounded-xl border border-[#e9e1d2] bg-[#fffefa] px-5 py-3 text-sm font-semibold text-[#15130f] transition-all duration-200 ease-out hover:bg-[#f6f2e8] disabled:cursor-not-allowed disabled:opacity-50;
+      @apply inline-flex items-center justify-center px-3 py-1.5 text-[10px] font-semibold disabled:cursor-not-allowed disabled:opacity-50;
+      --button-bg: #ffffff;
+      --button-hover-bg: #f8f8f8;
+      --button-text: #000000;
+      --button-text-hover: #000000;
     }
+
 
     .premium-input {
       @apply w-full rounded-xl border border-[#e9e1d2] bg-[#fffefa] px-4 py-3 text-base text-[#15130f] placeholder:text-[#7a7468] outline-none transition-colors duration-200 ease-out focus:border-[#15130f] focus:ring-0;
