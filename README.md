@@ -118,6 +118,7 @@ Create a `.env.local` file with the values your setup needs.
 Required for core app flow:
 
 ```env
+NEXT_PUBLIC_APP_URL=
 NEXT_PUBLIC_DRIZZLE_DB_URL=
 NEXT_PUBLIC_GEMINI_API_KEY=
 JWT_SECRET=
@@ -132,7 +133,7 @@ JWT_EXPIRES_IN_DAYS=7
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+GOOGLE_REDIRECT_URI=https://your-domain.com/api/auth/google/callback
 
 EMAIL_USER=
 EMAIL_PASS=
@@ -143,6 +144,7 @@ NEXT_PUBLIC_QUESTION_NOTE=
 
 Notes:
 
+- `NEXT_PUBLIC_APP_URL` should be your deployed site URL in production, for example `https://your-domain.com`.
 - `NEXT_PUBLIC_DRIZZLE_DB_URL` is used by both Drizzle config and runtime DB access in this codebase.
 - `JWT_SECRET` should be replaced with a real secret outside local experimentation.
 - `EMAIL_USER` and `EMAIL_PASS` are used by `/api/send-email`.
