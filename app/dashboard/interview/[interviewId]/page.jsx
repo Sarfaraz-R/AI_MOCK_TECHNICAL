@@ -220,7 +220,7 @@ const Interview = ({ params }) => {
                 ) : null}
                 <div className="mt-5">
                   <Button
-                    className="premium-button-primary w-full px-4 py-2 text-[10px]"
+                    className="premium-button-primary w-full px-3 py-1.5 text-[9px]"
                     disabled={!webCamEnabled}
                     onClick={() => {
                       if (webCamEnabled) {
