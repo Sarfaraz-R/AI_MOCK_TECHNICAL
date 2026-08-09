@@ -6,6 +6,11 @@ import { AuthProvider } from "@/components/AuthProvider";
 export const metadata = {
   title: "Scribo",
   description: "AI-powered interview practice with Scribo",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {

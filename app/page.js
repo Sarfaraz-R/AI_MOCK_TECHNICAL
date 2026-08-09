@@ -296,7 +296,7 @@ const page = () => {
       <Head>
         <title>Scribo</title>
         <meta name="description" content="Ace your next interview with Scribo" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icon.svg" />
       </Head>
 
       <main className="min-h-screen">
