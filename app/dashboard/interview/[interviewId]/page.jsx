@@ -20,7 +20,7 @@ const Interview = ({ params }) => {
   const router = useRouter();
   const { webCamEnabled, setWebCamEnabled } = useContext(WebCamContext);
   const [interviewData, setInterviewData] = useState();
-
+  let a;
   useEffect(() => {
     GetInterviewDetails();
   }, []);
