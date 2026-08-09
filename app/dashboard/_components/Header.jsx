@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <div className="fixed top-0 z-50 w-full px-4 py-4">
-      <div className="mx-auto grid max-w-[1180px] grid-cols-[1fr_auto_1fr] items-center px-4 py-3">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[auto_1fr_auto] items-center px-4 py-3 md:grid-cols-[1fr_auto_1fr]">
         <Link
           className="brand-logo hidden text-4xl text-black dark:text-white md:flex"
           href="/dashboard"
@@ -89,42 +89,47 @@ const Header = () => {
       </div>
 
       {isOpen && (
-        <div className="mx-auto mt-2 max-w-[1180px] space-y-1 rounded-2xl border border-black/25 bg-transparent p-2 shadow-[0_16px_50px_rgba(17,17,17,0.06)] backdrop-blur-xl dark:border-white/15 dark:bg-[#111111] md:hidden">
-          <Link href="/dashboard">
-            <li
-              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                path === "/dashboard"
-                  ? "bg-black text-[#ffffff] dark:bg-white/15 dark:text-white"
-                  : "text-black/70 hover:bg-black hover:text-[#ffffff] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
-              }`}
-            >
-              Dashboard
+        <div className="mx-auto mt-2 max-w-[1180px] rounded-2xl border border-white/10 bg-[#111111] p-2 shadow-[0_16px_50px_rgba(0,0,0,0.3)] md:hidden">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href="/dashboard"
+                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  path === "/dashboard"
+                    ? "bg-white/10 text-white"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                Dashboard
+              </Link>
             </li>
-          </Link>
 
-          <Link href="/dashboard/upgrade">
-            <li
-              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                path === "/dashboard/upgrade"
-                  ? "bg-black text-[#ffffff] dark:bg-white/15 dark:text-white"
-                  : "text-black/70 hover:bg-black hover:text-[#ffffff] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
-              }`}
-            >
-              Upgrade
+            <li>
+              <Link
+                href="/dashboard/upgrade"
+                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  path === "/dashboard/upgrade"
+                    ? "bg-white/10 text-white"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                Upgrade
+              </Link>
             </li>
-          </Link>
 
-          <Link href="/dashboard/howit">
-            <li
-              className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                path === "/dashboard/howit"
-                  ? "bg-black text-[#ffffff] dark:bg-white/15 dark:text-white"
-                  : "text-black/70 hover:bg-black hover:text-[#ffffff] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
-              }`}
-            >
-              How it works?
+            <li>
+              <Link
+                href="/dashboard/howit"
+                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  path === "/dashboard/howit"
+                    ? "bg-white/10 text-white"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                How it works?
+              </Link>
             </li>
-          </Link>
+          </ul>
         </div>
       )}
     </div>
