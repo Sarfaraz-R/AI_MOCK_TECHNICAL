@@ -89,16 +89,22 @@ const Header = () => {
       </div>
 
       {isOpen && (
-        <div className="mx-auto mt-2 max-w-[1180px] rounded-2xl border border-white/10 bg-[#111111] p-2 shadow-[0_16px_50px_rgba(0,0,0,0.3)] md:hidden">
+        <div
+          className="mx-auto mt-2 max-w-[1180px] rounded-2xl p-2 shadow-[0_16px_50px_rgba(0,0,0,0.3)] md:hidden"
+          style={{
+            backgroundColor: "#000000",
+            border: "1px solid rgba(255,255,255,0.12)",
+          }}
+        >
           <ul className="space-y-1">
             <li>
               <Link
                 href="/dashboard"
-                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                  path === "/dashboard"
-                    ? "bg-white/10 text-white"
-                    : "text-white/80 hover:bg-white/10 hover:text-white"
-                }`}
+                className="block rounded-xl px-3 py-2 text-sm font-medium transition-colors"
+                style={{
+                  color: "#ffffff",
+                  backgroundColor: path === "/dashboard" ? "rgba(255,255,255,0.12)" : "transparent",
+                }}
               >
                 Dashboard
               </Link>
@@ -107,11 +113,11 @@ const Header = () => {
             <li>
               <Link
                 href="/dashboard/upgrade"
-                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                  path === "/dashboard/upgrade"
-                    ? "bg-white/10 text-white"
-                    : "text-white/80 hover:bg-white/10 hover:text-white"
-                }`}
+                className="block rounded-xl px-3 py-2 text-sm font-medium transition-colors"
+                style={{
+                  color: "#ffffff",
+                  backgroundColor: path === "/dashboard/upgrade" ? "rgba(255,255,255,0.12)" : "transparent",
+                }}
               >
                 Upgrade
               </Link>
@@ -120,11 +126,11 @@ const Header = () => {
             <li>
               <Link
                 href="/dashboard/howit"
-                className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                  path === "/dashboard/howit"
-                    ? "bg-white/10 text-white"
-                    : "text-white/80 hover:bg-white/10 hover:text-white"
-                }`}
+                className="block rounded-xl px-3 py-2 text-sm font-medium transition-colors"
+                style={{
+                  color: "#ffffff",
+                  backgroundColor: path === "/dashboard/howit" ? "rgba(255,255,255,0.12)" : "transparent",
+                }}
               >
                 How it works?
               </Link>
